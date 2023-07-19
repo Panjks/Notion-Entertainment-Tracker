@@ -83,7 +83,7 @@ class NotionApi(object):
                     entertainment_type: str,
                     cover: str = None,
                     status: str = None,
-                    score: int = None,
+                    score: float = None,
                     date: str = None,
                     url: str = None,
                     episodes: int = None):
