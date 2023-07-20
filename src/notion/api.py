@@ -8,8 +8,8 @@ class NotionApi(object):
         self.database_id = database_id
         self.notion_client = Client(auth=self.auth_key)
 
-    @staticmethod
-    def page_properties_generate(name: str,
+    @classmethod
+    def page_properties_generate(cls, name: str,
                                  entertainment_type: str,
                                  cover: str = None,
                                  status: str = None,
@@ -58,8 +58,8 @@ class NotionApi(object):
         logger.info(f"Generate page properties finished. page name: {name}")
         return page_data
 
-    @staticmethod
-    def page_icon_generate(entertainment_type: str):
+    @classmethod
+    def page_icon_generate(cls, entertainment_type: str):
         url = 'https://www.notion.so/icons/movie-clapboard-play_gray.svg'
         if entertainment_type == "Anime":
             url = 'https://www.notion.so/icons/tulip-name-tag_gray.svg'
