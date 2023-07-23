@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta
 from typing import Union
 
+from fastapi import APIRouter
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
+from conf import FASTAPI_PASSWORD
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -18,7 +20,7 @@ users_db = {
         "username": "admin",
         "full_name": "admin",
         "email": "admin@admin.com",
-        "hashed_password": "1q2w3e4r",
+        "hashed_password": FASTAPI_PASSWORD,
         "disabled": False,
     }
 }
@@ -47,7 +49,7 @@ class UserInDB(User):
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-app = FastAPI()
+router = APIRouter()
 
 
 def verify_password(plain_password, hashed_password):
@@ -110,7 +112,7 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
     return current_user
 
 
-@app.post("/token", response_model=Token)
+@router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(users_db, form_data.username, form_data.password)
     if not user:
@@ -126,6 +128,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@app.get("/users/me/", response_model=User)
+@router.get("/users/me/", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
