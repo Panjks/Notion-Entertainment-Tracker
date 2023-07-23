@@ -4,3 +4,5 @@ notion-client
 fastapi
 python-jose[cryptography]
 passlib[bcrypt]
+uvicorn
+python-multipart
