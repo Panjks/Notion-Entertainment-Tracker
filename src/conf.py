@@ -1,3 +1,5 @@
 import os
 
 FASTAPI_PASSWORD = os.getenv("FASTAPI_PASSWORD", 'password')
+NOTION_ACCESS_KEY = os.getenv("NOTION_ACCESS_KEY")
+NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
