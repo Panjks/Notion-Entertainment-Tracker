@@ -10,7 +10,6 @@ app = FastAPI()
 async def check_host_middleware(request: Request, call_next):
     allowed_hosts = FASTAPI_ALLOWED_HOSTS.split(";")  # 允许的hosts列表
     if request.headers["host"] not in allowed_hosts and allowed_hosts != []:
-        print(request.headers["host"])
         return Response(status_code=403)
 
     response = await call_next(request)
