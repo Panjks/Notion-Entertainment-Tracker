@@ -59,7 +59,11 @@ class AnimeHandler(object):
         episodes_span = soup.find('span', class_='tip', string='话数: ')
         if episodes_span:
             episodes = str(episodes_span.next_sibling).strip()
-            ret['episodes'] = int(episodes)
+            try:
+                ret['episodes'] = int(episodes)
+            except Exception as err:
+                logger.error("Get episodes err. Details: {}".format(err))
+                ret['episodes'] = -1
 
         # Get anime cover.
         cover_tag = soup.find('img', class_='cover')
