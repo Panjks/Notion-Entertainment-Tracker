@@ -69,7 +69,7 @@ class AnimeHandler(object):
         cover_tag = soup.find('img', class_='cover')
         if cover_tag:
             cover_url = cover_tag['src']
-            ret["cover"] = 'http:' + str(cover_url)
+            ret["cover"] = 'https:' + str(cover_url)
 
         # Get anime score.
         rating_span = soup.find('span', property='v:average')
